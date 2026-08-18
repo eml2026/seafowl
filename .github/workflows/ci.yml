@@ -64,6 +64,9 @@ jobs:
       - name: Check pre-commit hooks (formatting and Clippy)
         run: pre-commit run --all --verbose
 
+      - name: Check nightly release artifacts
+        run: ./ci/check-nightly-release.sh
+
       - name: Build workspace in debug mode
         run: |
           cargo build
