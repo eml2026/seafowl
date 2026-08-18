@@ -37,27 +37,39 @@ upload_step = re.search(
 if not package_step or not upload_step:
     raise SystemExit("missing release packaging or upload step")
 
-archive_prefix = r"seafowl-\$\{\{ env\.RELEASE_VERSION \}\}-"
 package_loop = re.search(
     r"(?m)^\s*for target in ([^;]+); do\s*$",
     package_step.group(),
 )
-package_loop_targets = set()
-if package_loop:
-    package_loop_targets = set(re.findall(r"[A-Za-z0-9_.-]+", package_loop.group(1)))
+if not package_loop:
+    raise SystemExit("missing release packaging target loop")
 
-package_template = re.search(
-    r"seafowl-\$(?:\{\{ env\.RELEASE_VERSION \}\}|\{RELEASE_VERSION\})-\$\{target\}\.tar\.gz",
-    package_step.group(),
+matrix_targets = set(targets)
+packaged_targets = set(re.findall(r"[A-Za-z0-9_.-]+", package_loop.group(1)))
+uploaded_targets = set(
+    re.findall(
+        r"(?m)^\s+seafowl-\$\{\{ env\.RELEASE_VERSION \}\}-"
+        r"([A-Za-z0-9_.-]+)\.tar\.gz\s*$",
+        upload_step.group(),
+    )
 )
-for target in targets:
-    archive = rf"{archive_prefix}{re.escape(target)}\.tar\.gz"
-    packaged_literally = re.search(archive, package_step.group())
-    packaged_in_loop = package_template and target in package_loop_targets
-    if not (packaged_literally or packaged_in_loop):
-        raise SystemExit(f"missing release packaging for target: {target}")
-    if not re.search(archive, upload_step.group()):
-        raise SystemExit(f"missing release upload for target: {target}")
+
+
+def check_targets(kind, actual_targets):
+    missing = matrix_targets - actual_targets
+    extra = actual_targets - matrix_targets
+    if missing:
+        raise SystemExit(
+            f"{kind} is missing matrix targets: {', '.join(sorted(missing))}"
+        )
+    if extra:
+        raise SystemExit(
+            f"{kind} contains targets not in matrix: {', '.join(sorted(extra))}"
+        )
+
+
+check_targets("release packaging", packaged_targets)
+check_targets("release upload", uploaded_targets)
 
 print(f"nightly release artifacts cover {len(targets)} build targets: {', '.join(targets)}")
 PY
