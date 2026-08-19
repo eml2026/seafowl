@@ -185,6 +185,7 @@ artifacts (only if you're logged in, see
 [nightly.link](https://nightly.link/splitgraph/seafowl/workflows/nightly/main)**:
 
 - [Linux (x86_64-unknown-linux-gnu)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-unknown-linux-gnu.zip)
+- [Linux (aarch64-unknown-linux-gnu)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-aarch64-unknown-linux-gnu.zip)
 - [OSX (x86_64-apple-darwin)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-apple-darwin.zip)
 - [Windows (x86_64-pc-windows-msvc)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-pc-windows-msvc.zip)
 
