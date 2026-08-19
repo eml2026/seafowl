@@ -185,6 +185,7 @@ artifacts (only if you're logged in, see
 [nightly.link](https://nightly.link/splitgraph/seafowl/workflows/nightly/main)**:
 
 - [Linux (x86_64-unknown-linux-gnu)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-unknown-linux-gnu.zip)
+- [Linux ARM64 (aarch64-unknown-linux-gnu)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-aarch64-unknown-linux-gnu.zip)
 - [OSX (x86_64-apple-darwin)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-apple-darwin.zip)
 - [Windows (x86_64-pc-windows-msvc)](https://nightly.link/splitgraph/seafowl/workflows/nightly/main/seafowl-nightly-x86_64-pc-windows-msvc.zip)
 
@@ -196,6 +197,9 @@ We produce [Docker images](https://hub.docker.com/r/splitgraph/seafowl/tags) on 
 - Release builds are tagged according to their version, e.g. `v0.1.0` results in
   `splitgraph/seafowl:0.1.0` and `0.1`.
 - Nightly builds are tagged as `splitgraph/seafowl:nightly`
+
+Each tag is a multi-arch manifest covering `linux/amd64` and `linux/arm64`, so Docker pulls the
+image matching the host architecture.
 
 ## Long-term feature roadmap
 
