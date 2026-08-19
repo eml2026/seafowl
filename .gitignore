@@ -14,4 +14,4 @@ profile-*
 profile/memory-profiling_*
 
 # CLI history
-.history
+.history__pycache__/

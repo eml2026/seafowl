@@ -27,6 +27,8 @@ jobs:
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ runner.os }}-pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
+      - name: Check the release workflow build matrix
+        run: python3 -m unittest discover -s ci -p 'test_*.py' --verbose
       - name: Install protoc
         run: |
           mkdir -p $HOME/d/protoc
@@ -63,9 +65,6 @@ jobs:
 
       - name: Check pre-commit hooks (formatting and Clippy)
         run: pre-commit run --all --verbose
-
-      - name: Check the release workflow build matrix
-        run: python3 -m unittest discover -s ci -p 'test_*.py' --verbose
 
       - name: Build workspace in debug mode
         run: |
