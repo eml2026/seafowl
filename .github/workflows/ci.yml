@@ -21,12 +21,14 @@ jobs:
       - name: Install pre-commit
         run: |
           sudo apt-get update
-          sudo apt-get install -y pre-commit
+          sudo apt-get install -y pre-commit python3-yaml
       - name: Configure pre-commit cache
         uses: actions/cache@v4
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-${{ runner.os }}-pre-commit-${{ hashFiles('**/.pre-commit-config.yaml') }}
+      - name: Check the release workflow build matrix
+        run: python3 -m unittest discover -s ci -p 'test_*.py' --verbose
       - name: Install protoc
         run: |
           mkdir -p $HOME/d/protoc

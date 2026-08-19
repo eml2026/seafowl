@@ -4,6 +4,8 @@
 
 ## [Unreleased] - ReleaseDate
 
+- Add Linux arm64 (`aarch64-unknown-linux-gnu`) binaries and multi-arch Docker images
+
 ## [0.5.8] - 2024-08-14
 
 - Separate qualifier for new and old sync pks (<https://github.com/splitgraph/seafowl/pull/608>)
